@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Resource Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #0073e6;
+            color: white;
+            padding: 20px 0;
+            display: none;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: auto;
+            margin-top: 50px;
+            text-align: center;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .forgot-link {
+            display: block;
+            text-align: right;
+            font-size: 12px;
+            margin-bottom: 10px;
+            color: #0073e6;
+            text-decoration: none;
+        }
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+        .login-button, button {
+            width: 100%;
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .login-button:hover, button:hover {
+            background-color: #005bb5;
+        }
+        .signup-section {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .signup-section a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .signup-section a:hover {
+            text-decoration: underline;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        section {
+            margin: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        footer {
+            background-color: #0073e6;
+            color: white;
+            padding: 10px 0;
+            margin-top: 20px;
+            display: none;
+        }
+        .query-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: black;
+}
+
+.query-item button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.query-item button:hover {
+    background: darkred;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container" id="loginContainer">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <a href="#" class="forgot-link">Forgot Your Username?</a>
+        <input type="password" id="password" placeholder="Password">
+        <a href="#" class="forgot-link">Forgot Password?</a>
+        <button class="login-button" onclick="signIn()">LOG IN</button>
+        <div class="signup-section">
+            Don't have an account? <a href="#">Sign Up</a>
+        </div>
+    </div>
+
+    <header id="mainHeader">
+        <h1>Welcome to the Study Resource Hub</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showSection('uploadSection')">Home</a></li>
+                <li><a href="#" onclick="showSection('uploadedNotesSection')">Study Notes</a></li>
+                <li><a href="#" onclick="showSection('queriesSection')">Queries</a></li>
+                <li><a href="https://www.sanfoundry.com/1000-html-questions-answers/" target="_blank">Q&A</a></li>
+                <li><button onclick="logout()">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="uploadSection">
+        <h2>Upload Your Resources</h2>
+        <input type="text" id="uploadNotesTitle" placeholder="Enter note title">
+        <input type="file" id="uploadFile">
+        <button onclick="uploadNote()">Upload Note</button>
+        <textarea id="uploadQuery" rows="3" placeholder="Post your query..."></textarea>
+        <button onclick="postQuery()">Upload Query</button>
+    </section>
+
+    <section id="uploadedNotesSection">
+        <h2>Study Notes</h2>
+        <ul id="uploadedNotesList"></ul>
+    </section>
+
+    <section id="queriesSection">
+        <h2>Queries</h2>
+        <ul id="queryList"></ul>
+    </section>
+
+    <footer id="mainFooter">
+        <p>&copy; 2025 Study Resource Hub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function signIn() {
+            let username = document.getElementById("username").value.trim();
+            if (username) {
+                localStorage.setItem("username", username);
+                document.getElementById("loginContainer").style.display = "none";
+                document.getElementById("mainHeader").style.display = "block";
+                document.getElementById("mainFooter").style.display = "block";
+                showSection('uploadSection');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("username");
+            location.reload();
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(section => section.style.display = 'none');
+            document.getElementById(sectionId).style.display = 'block';
+        }
+        function uploadNote() {
+            let noteTitle = document.getElementById('uploadNotesTitle').value.trim();
+            let fileInput = document.getElementById('uploadFile');
+            let file = fileInput.files[0];
+
+            if (noteTitle && file) {
+                let notes = JSON.parse(localStorage.getItem('notes')) || [];
+                let reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    notes.push({ title: noteTitle, fileUrl: event.target.result });
+                    localStorage.setItem('notes', JSON.stringify(notes));
+                    displayNotes();
+                    document.getElementById('uploadNotesTitle').value = '';
+                    fileInput.value = '';
+                };
+                
+                reader.readAsDataURL(file);
+            } else {
+                alert("Please enter a title and select a file.");
+            }
+        }
+
+        function displayNotes() {
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+            let notesList = document.getElementById("uploadedNotesList");
+            notesList.innerHTML = notes.map((note, index) => 
+                `<li class="note-item">
+                    <strong>${note.title}</strong> - 
+                    <a href="${note.fileUrl}" target="_blank">View</a> 
+                    <button onclick="deleteNote(${index})">X</button>
+                </li>`
+            ).join('');
+        }
+        function deleteNote(index) {
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+            notes.splice(index, 1);
+            localStorage.setItem('notes', JSON.stringify(notes));
+            displayNotes();
+        }
+
+
+        function postQuery() {
+        let queryText = document.getElementById('uploadQuery').value.trim();
+        if (queryText) {
+            let queries = JSON.parse(localStorage.getItem('queries')) || [];
+            queries.push(queryText);
+            localStorage.setItem('queries', JSON.stringify(queries));
+            displayQueries();
+            document.getElementById('uploadQuery').value = '';
+            showSection('queriesSection');
+        }
+        }
+
+        function displayQueries() {
+    let queries = JSON.parse(localStorage.getItem('queries')) || [];
+    let queryList = document.getElementById("queryList");
+
+    queryList.innerHTML = queries.map((query, index) => 
+        `<li class="query-item">${query} <button onclick="deleteQuery(${index})">X</button></li>`
+    ).join('');
+}
+
+
+    function deleteQuery(index) {
+        let queries = JSON.parse(localStorage.getItem('queries')) || [];
+        queries.splice(index, 1);
+        localStorage.setItem('queries', JSON.stringify(queries));
+        displayQueries();  // ✅ Now queries update after deletion
+    }
+    </script>
+</body>
+</html>
