@@ -4,165 +4,169 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Study Resource Website</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      text-align: center;
-      background-color: #f4f4f4;
     }
-    header {
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      color: #333;
+    }
+
+    header, footer {
       background-color: #0073e6;
       color: white;
-      padding: 20px 0;
-      display: none;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
     }
-    .container {
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: 300px;
-      margin: auto;
-      margin-top: 50px;
-      text-align: center;
+
+    header nav ul, footer nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
     }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .forgot-link {
-      display: block;
-      text-align: right;
-      font-size: 12px;
-      margin-bottom: 10px;
-      color: #0073e6;
+
+    nav ul li a, nav ul li button {
+      color: white;
       text-decoration: none;
+      font-weight: bold;
+      background: none;
+      border: none;
+      cursor: pointer;
     }
-    .forgot-link:hover {
+
+    nav ul li button:hover, nav ul li a:hover {
       text-decoration: underline;
     }
+
+    .container {
+      background: white;
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
     .login-button, button {
       width: 100%;
+      padding: 12px;
       background-color: #0073e6;
-      color: white;
       border: none;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
+      color: white;
       font-size: 16px;
+      border-radius: 8px;
+      transition: background-color 0.3s;
     }
+
     .login-button:hover, button:hover {
       background-color: #005bb5;
     }
+
     .signup-section {
       margin-top: 15px;
-      font-size: 14px;
+      text-align: center;
     }
+
     .signup-section a {
       color: #0073e6;
       text-decoration: none;
       font-weight: bold;
     }
+
     .signup-section a:hover {
       text-decoration: underline;
     }
-    nav ul {
-      list-style: none;
-      padding: 0;
-    }
-    nav ul li {
-      display: inline;
-      margin: 0 15px;
-    }
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
+
     section {
-      margin: 20px;
-      padding: 20px;
+      max-width: 800px;
+      margin: 20px auto;
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       display: none;
     }
-    footer {
-      background-color: #0073e6;
-      color: white;
-      padding: 10px 0;
-      margin-top: 20px;
-      display: none;
-    }
-    .query-item {
-      background: #e9ecef;
+
+    ul { padding: 0; }
+
+    li {
+      list-style: none;
       padding: 10px;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      font-size: 16px;
-      color: black;
-      text-align: left;
-    }
-    .query-actions {
+      margin: 10px 0;
+      background: #f0f0f0;
+      border-radius: 8px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
     }
-    .query-item button {
-      background: red;
-      color: white;
-      border: none;
+
+    li button {
+      background-color: red;
       padding: 5px 10px;
       border-radius: 5px;
-      cursor: pointer;
+      color: white;
+      font-size: 14px;
+      align-self: flex-end;
+    }
+
+    #xpBadge {
+      background-color: gold;
+      color: black;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-weight: bold;
       font-size: 14px;
     }
-    .query-item button:hover {
-      background: darkred;
-    }
-    .reply-box {
-      margin-top: 10px;
-    }
-    .reply-list {
-      margin-top: 10px;
-      padding-left: 10px;
-      font-size: 14px;
-      color: #333;
-    }
-    .reply-item {
-      background: #f0f0f0;
-      padding: 6px;
-      border-radius: 4px;
-      margin-bottom: 5px;
+
+    @media screen and (max-width: 500px) {
+      header, footer, .container, section {
+        padding: 10px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container" id="loginContainer">
     <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username">
-    <a href="#" class="forgot-link">Forgot Your Username?</a>
-    <input type="password" id="password" placeholder="Password">
-    <a href="#" class="forgot-link">Forgot Password?</a>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
     <button class="login-button" onclick="signIn()">LOG IN</button>
     <div class="signup-section">
       Don't have an account? <a href="#">Sign Up</a>
     </div>
   </div>
 
-  <header id="mainHeader">
-    <h1>Welcome to the Study Resource Hub</h1>
+  <header id="mainHeader" style="display:none">
+    <h1>Study Resource Hub</h1>
+    <span id="xpBadge">XP: 0</span>
     <nav>
       <ul>
-        <li><a href="#" onclick="showSection('uploadSection')">Home</a></li>
-        <li><a href="#" onclick="showSection('uploadedNotesSection')">Study Notes</a></li>
-        <li><a href="#" onclick="showSection('queriesSection')">Queries</a></li>
+        <li><a onclick="showSection('uploadSection')">Home</a></li>
+        <li><a onclick="showSection('uploadedNotesSection')">Study Notes</a></li>
+        <li><a onclick="showSection('queriesSection')">Queries</a></li>
+        <li><a href="https://www.sanfoundry.com/1000-html-questions-answers/" target="_blank">Q&A Game</a></li>
         <li><button onclick="logout()">Logout</button></li>
       </ul>
     </nav>
@@ -170,7 +174,7 @@
 
   <section id="uploadSection">
     <h2>Upload Your Resources</h2>
-    <input type="text" id="uploadNotesTitle" placeholder="Enter note title">
+    <input type="text" id="uploadNotesTitle" placeholder="Note Title">
     <input type="file" id="uploadFile">
     <button onclick="uploadNote()">Upload Note</button>
     <textarea id="uploadQuery" rows="3" placeholder="Post your query..."></textarea>
@@ -187,20 +191,32 @@
     <ul id="queryList"></ul>
   </section>
 
-  <footer id="mainFooter">
+  <footer id="mainFooter" style="display:none">
     <p>&copy; 2025 Study Resource Hub. All rights reserved.</p>
   </footer>
 
   <script>
     function signIn() {
       let username = document.getElementById("username").value.trim();
-      if (username) {
-        localStorage.setItem("username", username);
-        document.getElementById("loginContainer").style.display = "none";
-        document.getElementById("mainHeader").style.display = "block";
-        document.getElementById("mainFooter").style.display = "block";
-        showSection('uploadSection');
+      let password = document.getElementById("password").value.trim();
+
+      if (!username || !password) {
+        alert("Please enter both username and password.");
+        return;
       }
+
+      localStorage.setItem("username", username);
+      if (!localStorage.getItem(`xp_${username}`)) {
+        localStorage.setItem(`xp_${username}`, 0);
+      }
+
+      document.getElementById("loginContainer").style.display = "none";
+      document.getElementById("mainHeader").style.display = "flex";
+      document.getElementById("mainFooter").style.display = "block";
+      showSection('uploadSection');
+      displayNotes();
+      displayQueries();
+      loadXP();
     }
 
     function logout() {
@@ -209,109 +225,123 @@
     }
 
     function showSection(sectionId) {
-      document.querySelectorAll('section').forEach(section => section.style.display = 'none');
+      document.querySelectorAll('section').forEach(s => s.style.display = 'none');
       document.getElementById(sectionId).style.display = 'block';
-      displayNotes();
-      displayQueries();
+    }
+
+    function getUsername() {
+      return localStorage.getItem("username");
+    }
+
+    function updateXP(amount) {
+      const username = getUsername();
+      let xp = parseInt(localStorage.getItem(`xp_${username}`)) || 0;
+      xp += amount;
+      localStorage.setItem(`xp_${username}`, xp);
+      document.getElementById("xpBadge").innerText = `XP: ${xp}`;
+    }
+
+    function loadXP() {
+      const username = getUsername();
+      const xp = parseInt(localStorage.getItem(`xp_${username}`)) || 0;
+      document.getElementById("xpBadge").innerText = `XP: ${xp}`;
     }
 
     function uploadNote() {
-      let noteTitle = document.getElementById('uploadNotesTitle').value.trim();
-      let fileInput = document.getElementById('uploadFile');
-      let file = fileInput.files[0];
+      const title = document.getElementById('uploadNotesTitle').value.trim();
+      const file = document.getElementById('uploadFile').files[0];
+      if (!title || !file) return alert("Please provide both title and file.");
 
-      if (noteTitle && file) {
-        let notes = JSON.parse(localStorage.getItem('notes')) || [];
-        let reader = new FileReader();
-
-        reader.onload = function(event) {
-          notes.push({ title: noteTitle, fileUrl: event.target.result });
-          localStorage.setItem('notes', JSON.stringify(notes));
-          displayNotes();
-          document.getElementById('uploadNotesTitle').value = '';
-          fileInput.value = '';
-        };
-
-        reader.readAsDataURL(file);
-      } else {
-        alert("Please enter a title and select a file.");
-      }
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+        notes.push({ title, fileUrl: e.target.result });
+        localStorage.setItem('notes', JSON.stringify(notes));
+        displayNotes();
+        updateXP(10); // XP for uploading note
+      };
+      reader.readAsDataURL(file);
+      document.getElementById('uploadNotesTitle').value = '';
+      document.getElementById('uploadFile').value = '';
     }
 
     function displayNotes() {
-      let notes = JSON.parse(localStorage.getItem('notes')) || [];
-      let notesList = document.getElementById("uploadedNotesList");
-      notesList.innerHTML = notes.map((note, index) =>
-        `<li class="note-item">
-            <strong>${note.title}</strong> -
-            <a href="${note.fileUrl}" target="_blank">View</a>
-            <button onclick="deleteNote(${index})">X</button>
-        </li>`
-      ).join('');
+      const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+      document.getElementById("uploadedNotesList").innerHTML = notes.map((note, i) =>
+        `<li><strong>${note.title}</strong> <a href="${note.fileUrl}" target="_blank">View</a> <button onclick="deleteNote(${i})">X</button></li>`).join('');
     }
 
-    function deleteNote(index) {
-      let notes = JSON.parse(localStorage.getItem('notes')) || [];
-      notes.splice(index, 1);
+    function deleteNote(i) {
+      const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+      notes.splice(i, 1);
       localStorage.setItem('notes', JSON.stringify(notes));
       displayNotes();
     }
 
     function postQuery() {
-      let queryText = document.getElementById('uploadQuery').value.trim();
-      if (queryText) {
-        let queries = JSON.parse(localStorage.getItem('queries')) || [];
-        queries.push({ text: queryText, replies: [] });
-        localStorage.setItem('queries', JSON.stringify(queries));
-        document.getElementById('uploadQuery').value = '';
-        displayQueries();
-        showSection('queriesSection');
-      }
+      const query = document.getElementById('uploadQuery').value.trim();
+      if (!query) return alert("Enter a query.");
+      const queries = JSON.parse(localStorage.getItem('queries') || '[]');
+      queries.push({ text: query, replies: [] });
+      localStorage.setItem('queries', JSON.stringify(queries));
+      displayQueries();
+      document.getElementById('uploadQuery').value = '';
+      showSection('queriesSection');
+      updateXP(5); // XP for posting query
     }
 
     function displayQueries() {
-      let queries = JSON.parse(localStorage.getItem('queries')) || [];
-      let queryList = document.getElementById("queryList");
+      const queries = JSON.parse(localStorage.getItem('queries') || '[]');
+      const queryList = document.getElementById("queryList");
+      queryList.innerHTML = '';
 
-      queryList.innerHTML = queries.map((query, index) => {
-        const repliesHtml = (query.replies || []).map(reply =>
-          `<div class="reply-item">${reply}</div>`
-        ).join('');
-        return `
-          <li class="query-item">
-            <div class="query-actions">
-              <span>${query.text}</span>
-              <button onclick="deleteQuery(${index})">X</button>
-            </div>
-            <div class="reply-box">
-              <input type="text" id="replyInput${index}" placeholder="Write a reply..." />
-              <button onclick="submitReply(${index})">Reply</button>
-            </div>
-            <div class="reply-list">${repliesHtml}</div>
-          </li>
+      queries.forEach((q, i) => {
+        const queryItem = document.createElement('li');
+        queryItem.innerHTML = `
+          <div><strong>Q:</strong> ${q.text} <button onclick="deleteQuery(${i})">X</button></div>
+          <div style="margin-top:5px;">
+            <input type="text" placeholder="Your reply..." id="replyInput${i}" style="width:70%; padding:5px; border-radius:5px; border:1px solid #ccc;">
+            <button style="margin-left:5px;" onclick="postReply(${i})">Reply</button>
+          </div>
+          <ul style="margin-left:20px; margin-top:10px;" id="replyList${i}">
+            ${q.replies.map(r => `<li>${r}</li>`).join('')}
+          </ul>
         `;
-      }).join('');
+        queryList.appendChild(queryItem);
+      });
     }
 
-    function deleteQuery(index) {
-      let queries = JSON.parse(localStorage.getItem('queries')) || [];
-      queries.splice(index, 1);
+    function deleteQuery(i) {
+      const queries = JSON.parse(localStorage.getItem('queries') || '[]');
+      queries.splice(i, 1);
       localStorage.setItem('queries', JSON.stringify(queries));
       displayQueries();
     }
 
-    function submitReply(index) {
-      let input = document.getElementById(`replyInput${index}`);
-      let reply = input.value.trim();
-      if (reply) {
-        let queries = JSON.parse(localStorage.getItem('queries')) || [];
-        queries[index].replies = queries[index].replies || [];
-        queries[index].replies.push(reply);
-        localStorage.setItem('queries', JSON.stringify(queries));
-        input.value = '';
-        displayQueries();
-      }
+    function postReply(index) {
+      const replyInput = document.getElementById(`replyInput${index}`);
+      const reply = replyInput.value.trim();
+      if (!reply) return alert("Enter a reply.");
+
+      const queries = JSON.parse(localStorage.getItem('queries') || '[]');
+      queries[index].replies.push(reply);
+      localStorage.setItem('queries', JSON.stringify(queries));
+      displayQueries();
+      updateXP(3); // XP for replying
     }
+
+    window.onload = function () {
+      const username = localStorage.getItem("username");
+      if (username) {
+        document.getElementById("loginContainer").style.display = "none";
+        document.getElementById("mainHeader").style.display = "flex";
+        document.getElementById("mainFooter").style.display = "block";
+        showSection('uploadSection');
+        displayNotes();
+        displayQueries();
+        loadXP();
+      }
+    };
   </script>
 </body>
 </html>
